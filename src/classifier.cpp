@@ -66,23 +66,10 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
     double left_d_offset_acc = 0.0;
     double keep_d_offset_acc = 0.0;
     double right_d_offset_acc = 0.0;
-    double left_d_offset_ave = 0.0;
-    double keep_d_offset_ave = 0.0;
-    double right_d_offset_ave = 0.0;
-
-    double left_s_dot_acc = 0.0;
-    double keep_s_dot_acc = 0.0;
-    double right_s_dot_acc = 0.0;
-    double left_s_dot_ave = 0.0;
-    double keep_s_dot_ave = 0.0;
-    double right_s_dot_ave = 0.0;
 
     double left_d_dot_acc = 0.0;
     double keep_d_dot_acc = 0.0;
     double right_d_dot_acc = 0.0;
-    double left_d_dot_ave = 0.0;
-    double keep_d_dot_ave = 0.0;
-    double right_d_dot_ave = 0.0;
 
     for (int i=0; i<labels.capacity(); i++)
     {
@@ -97,17 +84,14 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
         if (tmp == "left") {
             p_left_cnt++;
             left_d_offset_acc += tmp2;
-            left_s_dot_acc += tmp4;
             left_d_dot_acc += tmp5;
         } else if (tmp == "keep") {
             p_keep_cnt++;
             keep_d_offset_acc += tmp2;
-            keep_s_dot_acc += tmp4;
             keep_d_dot_acc += tmp5;
         } else if (tmp == "right") {
             p_right_cnt++;
             right_d_offset_acc += tmp2;
-            right_s_dot_acc += tmp4;
             right_d_dot_acc += tmp5;
         }
 
@@ -118,10 +102,6 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
     left_d_offset_ave = left_d_offset_acc / ((double) p_left_cnt);
     keep_d_offset_ave = keep_d_offset_acc / ((double) p_keep_cnt);
     right_d_offset_ave = right_d_offset_acc / ((double) p_right_cnt);
-
-    left_s_dot_ave = left_s_dot_acc / ((double) p_left_cnt);
-    keep_s_dot_ave = keep_s_dot_acc / ((double) p_keep_cnt);
-    right_s_dot_ave = right_s_dot_acc / ((double) p_right_cnt);
 
     left_d_dot_ave = left_d_dot_acc / ((double) p_left_cnt);
     keep_d_dot_ave = keep_d_dot_acc / ((double) p_keep_cnt);
@@ -142,23 +122,10 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
     double left_d_offset_dev_acc = 0.0;
     double keep_d_offset_dev_acc = 0.0;
     double right_d_offset_dev_acc = 0.0;
-    double left_d_offset_dev = 0.0;
-    double keep_d_offset_dev = 0.0;
-    double right_d_offset_dev = 0.0;
-
-    double left_s_dot_dev_acc = 0.0;
-    double keep_s_dot_dev_acc = 0.0;
-    double right_s_dot_dev_acc = 0.0;
-    double left_s_dot_dev = 0.0;
-    double keep_s_dot_dev = 0.0;
-    double right_s_dot_dev = 0.0;
 
     double left_d_dot_dev_acc = 0.0;
     double keep_d_dot_dev_acc = 0.0;
     double right_d_dot_dev_acc = 0.0;
-    double left_d_dot_dev = 0.0;
-    double keep_d_dot_dev = 0.0;
-    double right_d_dot_dev = 0.0;
 
     for (int i=0; i<labels.capacity(); i++)
     {
@@ -172,15 +139,12 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
 
         if (tmp == "left") {
             left_d_offset_dev_acc += pow((tmp2 - left_d_offset_ave), 2.0);
-            left_s_dot_dev_acc += pow((tmp4 - left_s_dot_ave), 2.0);
             left_d_dot_dev_acc += pow((tmp5 - left_d_dot_ave), 2.0);
         } else if (tmp == "keep") {
             keep_d_offset_dev_acc += pow((tmp2 - keep_d_offset_ave), 2.0);;
-            keep_s_dot_dev_acc += pow((tmp4 - keep_s_dot_ave), 2.0);
             keep_d_dot_dev_acc += pow((tmp5 - keep_d_dot_ave), 2.0);
         } else if (tmp == "right") {
             right_d_offset_dev_acc += pow((tmp2 - right_d_offset_ave), 2.0);;
-            right_s_dot_dev_acc += pow((tmp4 - right_s_dot_ave), 2.0);
             right_d_dot_dev_acc += pow((tmp5 - right_d_dot_ave), 2.0);
         }
 
@@ -189,10 +153,6 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
     left_d_offset_dev = left_d_offset_dev_acc / ((double) p_left_cnt);
     keep_d_offset_dev = keep_d_offset_dev_acc / ((double) p_keep_cnt);
     right_d_offset_dev = right_d_offset_dev_acc / ((double) p_right_cnt);
-
-    left_s_dot_dev = left_s_dot_dev_acc / ((double) p_left_cnt);
-    keep_s_dot_dev = keep_s_dot_dev_acc / ((double) p_keep_cnt);
-    right_s_dot_dev = right_s_dot_dev_acc / ((double) p_right_cnt);
 
     left_d_dot_dev = left_d_dot_dev_acc / ((double) p_left_cnt);
     keep_d_dot_dev = keep_d_dot_dev_acc / ((double) p_keep_cnt);
@@ -205,11 +165,6 @@ void GNB::train(vector<vector<double>> data, vector<string> labels)
     cout << "left_d_offset_dev=" << fixed << left_d_offset_dev
          << ", keep_d_offset_dev=" << keep_d_offset_dev
          << ", right_d_offset_dev=" << right_d_offset_dev << endl;
-
-    cout << "left_s_dot_ave=" << fixed << left_s_dot_ave << ", keep_s_dot_ave=" << keep_s_dot_ave<< ", right_s_dot_ave=" << right_s_dot_ave << endl;
-    cout << "left_s_dot_dev=" << fixed << left_s_dot_dev
-         << ", keep_s_dot_dev=" << keep_s_dot_dev
-         << ", right_s_dot_dev=" << right_s_dot_dev << endl;
 
     cout << "left_d_dot_ave=" << fixed << left_d_dot_ave << ", keep_d_dot_ave=" << keep_d_dot_ave<< ", right_d_dot_ave=" << right_d_dot_ave << endl;
     cout << "left_d_dot_dev=" << fixed << left_d_dot_dev
@@ -248,6 +203,34 @@ string GNB::predict(vector<double> sample)
     //  https://en.wikipedia.org/wiki/Naive_Bayes_classifier#Parameter_estimation_and_event_models
     //
 
-	return this->possible_labels[1];
+    double d_offset = fmod(sample[1], lane_width);
+    double tmp3 = lane_width - d_offset;
+    d_offset = (d_offset > tmp3) ? tmp3 : d_offset;
+
+    double s_dot = sample[2];
+    double d_dot = sample[3];
+
+    double p_l = p_left *
+            naive_bayes(d_offset, left_d_offset_ave, left_d_offset_dev) *
+            naive_bayes(d_dot, left_d_dot_ave, left_d_dot_dev);
+    double p_k = p_keep *
+            naive_bayes(d_offset, keep_d_offset_ave, keep_d_offset_dev) *
+            naive_bayes(d_dot, keep_d_dot_ave, keep_d_dot_dev);
+    double p_r = p_right *
+            naive_bayes(d_offset, right_d_offset_ave, right_d_offset_dev) *
+            naive_bayes(d_dot, right_d_dot_ave, right_d_dot_dev);
+
+    double p_max = max(p_l, max(p_k, p_r));
+
+    if (p_max == p_l)
+        return this->possible_labels[0];
+    else if (p_max == p_k)
+        return this->possible_labels[1];
+    else if (p_max == p_r)
+        return this->possible_labels[2];
 }
 
+double GNB::naive_bayes(double input, double ave, double dev)
+{
+    return exp(-pow((input-ave),2.0)/(2.0*dev)) / sqrt(2.0*3.1415926*dev);
+}
