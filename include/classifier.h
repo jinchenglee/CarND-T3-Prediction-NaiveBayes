@@ -12,6 +12,11 @@ using namespace std;
 class GNB {
 
 public:
+        double lane_width = 4.0; // Lane width is 4 meters.
+
+        // Behavior occuring probability
+        double p_left, p_keep, p_right;
+
 	vector<string> possible_labels = {"left","keep","right"};
 
 	/**
